@@ -17,6 +17,6 @@ The purpose of this application is to provide an easy to use system for scheduli
 ### Features
 
 ### Links
-  GitHub: 
+  GitHub: https://github.com/mtsmith051/appointment-scheduler
 
-  Deployed Site: 
+  Deployed Site: https://mtsmith051.github.io/appointment-scheduler/

@@ -6,15 +6,16 @@ The purpose of this application is to provide an easy to use system for scheduli
 
 ## Table of Contents 
   * Installation
-  * Usage
+  * Demo
   * Features
 
 ### Installation
   No Installation Required
 
-### Usage
-
+### Demo
+![alt text](./images/Screenshot%202023-03-28%20230416.png)
 ### Features
+  Allows user to schedule their day by adding appointments to the appropriate times and save them for future reference.
 
 ### Links
   GitHub: https://github.com/mtsmith051/appointment-scheduler

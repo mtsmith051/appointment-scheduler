@@ -22,7 +22,7 @@ $(document).ready(function () {
     inputArr.push(textObject);
     localStorage.setItem('savedText', JSON.stringify(inputArr));
     
-  }
+  };
 
   //Assigns different color to identify past present and future time slots.
   function blockColor(){
@@ -35,7 +35,7 @@ $(document).ready(function () {
       if (index == (currentTime - 9))
         $(this).attr("class", "row time-block present");
     });
-  } 
+  }; 
   blockColor();
 
 //Saves text input to local storage
@@ -43,7 +43,7 @@ $(document).ready(function () {
     inputArr.forEach(function(key){
       $(".time-block").get(key.hour - 9).children[1].textContent = key.text;
     });
-  }
+  };
   userInput();
 
 // Adds a functioning date and time to header to identify correct date/time 
@@ -54,10 +54,10 @@ function setTimeHeader() {
   function updateTime(){
     currentDate = dayjs().format('MMM DD, YYYY [at] HH:mm:ss a');
     $('#currentDay').text(currentDate);
-  }
+  };
   
   setInterval(updateTime, 1000);
-}
+};
 setTimeHeader();
 
 });

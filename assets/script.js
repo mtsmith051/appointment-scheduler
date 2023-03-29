@@ -1,43 +1,63 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-$(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // var appointmentInput = document.querySelector("#hour-9");
+// Makes the save button operable
+$(document).ready(function () {
+  var saveButton = $(".saveBtn")
+  var inputArr = JSON.parse(localStorage.getItem('savedText')) || []
+  
 
-  // var appointments = []
+  saveButton.on("click", saveEvent) 
 
-  // function renderAppointments () {
-  //   appointmentInput.innerHTML = "";
+  function saveEvent(event) {
+    var inputBtn = event.target
+    
+    var saveHour = $(inputBtn).parent().prop('id').split("-")[1];
+    
+    var textInput = $(inputBtn).siblings('.description').val();
+    
+    var textObject = {
+      hour: saveHour, 
+      text: textInput
+    };
+    
+    inputArr = inputArr.filter(({ hour }) => hour !== saveHour )
+    inputArr.push(textObject);
+    localStorage.setItem('savedText', JSON.stringify(inputArr));
+    
+  }
 
-  // }
+  //Assigns different color to identify past present and future time slots.
+  function blockColor(){
+    let currentTime = dayjs().format('HH');
+    $(".time-block").each(function(index) {
+      if (index > (currentTime - 9))
+        $(this).attr("class", "row time-block future");
+      if (index < (currentTime - 9))
+        $(this).attr("class", "row time-block past");
+      if (index == (currentTime - 9))
+        $(this).attr("class", "row time-block present");
+    });
+  } 
+  blockColor();
 
-  // function init() {
-  //   var storedAppointments = JSON.parse(localStorage.getItem("appointmentInput"));
+//Saves text input to local storage
+  function userInput() {
+    inputArr.forEach(function(key){
+      $(".time-block").get(key.hour - 9).children[1].textContent = key.text;
+    });
+  }
+  userInput();
 
-  //   if (storedAppointments !== null) {
-  //     Appointments = storedAppointments;
-  //   }
+// Adds a functioning date and time to header to identify correct date/time 
+function setTimeHeader() {
+  var currentDate = dayjs().format('MMM DD, YYYY [at] HH:mm:ss a');
+  $('#currentDay').text(currentDate);
 
-  //   renderAppointments();
-  // }
+  function updateTime(){
+    currentDate = dayjs().format('MMM DD, YYYY [at] HH:mm:ss a');
+    $('#currentDay').text(currentDate);
+  }
+  
+  setInterval(updateTime, 1000);
+}
+setTimeHeader();
 
-
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
 });
